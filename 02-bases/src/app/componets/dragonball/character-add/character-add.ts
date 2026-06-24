@@ -1,17 +1,19 @@
-import {  Component, input, signal } from '@angular/core';
+import {  Component, input, output, signal } from '@angular/core';
 import { Character } from '../../../interfaces/character.interface';
 
 @Component({
   selector: 'dragonball-character-add',
   imports: [],
-  templateUrl: './dragonball-character-add.html',
+  templateUrl: './character-add.html',
 })
 export class DragonballCharacterAdd {
 
     name = signal('');
     power = signal(0);
   
-    charactersParam = input.required<Character[]>();
+    newCharacter = output<Character>();
+
+    //charactersParam = input.required<Character[]>();
 
     addCharacter() {
 
@@ -19,13 +21,14 @@ export class DragonballCharacterAdd {
         return;
 
       const newCharacter: Character =  {
-          id : this.charactersParam().length + 1,
+          id : Math.floor(Math.random() * 1000),
           name : this.name(),
           power : this.power()
       }
 
       //this.charactersParam.update((list) => [...list, newCharacter])  ;
-      this.charactersParam().push(newCharacter); // .update((list) => [...list, newCharacter])  ;
+      //this.charactersParam().push(newCharacter); // .update((list) => [...list, newCharacter])  ;
+      this.newCharacter.emit(newCharacter);
 
       this.resetField();
 
