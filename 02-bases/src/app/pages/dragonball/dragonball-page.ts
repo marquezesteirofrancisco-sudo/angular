@@ -33,6 +33,13 @@ export class DragonballPage {
     },
 
     {
+      id : 4,
+      name : 'Ymacha',
+      power : 500
+    },
+
+    
+    {
       id : 3,
       name : 'Piccolo',
       power : 8003
