@@ -2,11 +2,31 @@
 
 <section class="row">
     <div class = "col-12 col-sm-6">
-        <h3>Agregar:</h3>
-        <input type="text" class="form-control" placeholder="Nombre del personaje"/>
-        <input type="number" class="form-control mt-2" placeholder="Poder del personaje" />
+        <h3>Agregar: {{name()}}</h3>
 
-        <button class="mt-2 btn btn-primary">Agregar</button>
+        <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Nombre del personaje"
+            [value] = "name()"
+            (input)="name.set(txtName.value)"
+            (change)="name.set(txtName.value)"
+            #txtName
+            />
+
+        <h3> {{power()}} </h3>
+        <input 
+            type="number" 
+            class="form-control mt-2" 
+            placeholder= "Introduzca el poder" 
+
+            [value] = "power()"
+            (input)="power.set(txtPower.valueAsNumber)"
+            (change)="power.set(txtPower.valueAsNumber)"
+            #txtPower
+            />
+
+        <button (click)="addCharacter()" class="mt-2 btn btn-primary">Agregar</button>
     </div>
 
     <div class="col-12 col-sm-6">
