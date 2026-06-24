@@ -9,6 +9,7 @@ import type {Character} from '../../../interfaces/character.interface';
 
 export class CharacterList {
 
+  listadoPersonajesParam = input.required<string>();
   charactersParam = input.required<Character[]>();
   
 }
