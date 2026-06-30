@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-trending-page',
-  imports: [],
+  imports: [RouterOutlet],
   templateUrl: './trending-page.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class TrendingPage {}
