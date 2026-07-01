@@ -49,7 +49,7 @@ export class GifsService {
     }
 
 
-    searchGifs(query: string)  {
+    searchGifs(query: string) : Observable<Gif[]> {
 
         console.log("voy a hacer la peticion http filtrada por query", query);
 
@@ -89,8 +89,10 @@ export class GifsService {
         //     console.log("gifs search", gifs);
             
         // } );
+    }
 
 
-
+    getHistoryGifs(query: string): Gif[] {
+        return this.searhHistory()[query] ?? [];
     }
 }
