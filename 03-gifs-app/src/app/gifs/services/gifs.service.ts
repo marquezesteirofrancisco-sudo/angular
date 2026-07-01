@@ -28,7 +28,8 @@ export class GifsService {
             }
         }).subscribe( (resp) => {
             const gifs: Gif[] = GifMapper.mapGiphyItemsToGifArray(resp.data);
-            console.log("gifs cargados", gifs);
+            this.trendingGifs.set(gifs);
+            console.log("gifs cargados", this.trendingGifs());
         } );
 
     }
