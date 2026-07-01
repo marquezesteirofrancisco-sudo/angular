@@ -1,10 +1,18 @@
+import {computed, inject, Injectable, signal }from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {inject, Injectable, signal }from '@angular/core';
+import { map, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { GiphyResponse } from '../intefaces/giphy.interface';
 import { Gif } from '../intefaces/gif.interface';
 import { GifMapper } from '../mapper/gif.mapper';
-import { map, Observable, tap } from 'rxjs';
+
+// {
+//     'goku': [gif1, gif2, gif3],
+//     'naruto': [gif4, gif5, gif6],
+//     'one piece': [gif7, gif8, gif9],
+// }
+
+// Record<string, Gif[]> ;
 
 @Injectable({providedIn: 'root'})
 export class GifsService {
@@ -13,6 +21,9 @@ export class GifsService {
 
     trendingGifs = signal<Gif[]>([]);
     trendingGifsLoading = signal<boolean>(false);
+
+    searhHistory = signal<Record<string, Gif[]>>({});
+    searhHistoryKeys = computed(() => Object.keys(this.searhHistory()));
 
     constructor() { 
         console.log("GifsService constructor called");
@@ -51,9 +62,18 @@ export class GifsService {
         }).pipe(
 
             map(({data}) => data),
-            map((items) => GifMapper.mapGiphyItemsToGifArray(items))
+            map((items) => GifMapper.mapGiphyItemsToGifArray(items)),
 
             //TODO: Historial
+
+            tap( (items) => { 
+
+                this.searhHistory.update( (history) => ({
+                    ...history,
+                    [query.toLowerCase()]: items
+                }))
+
+            })
 
         );
 
